@@ -17,7 +17,6 @@ describe('PatientService', () => {
   });
 
   describe('register', () => {
-
     it('should return a new patient with given name', async () => {
         const newPatient = await service.register({ name: 'John Doe' });
 
@@ -26,6 +25,20 @@ describe('PatientService', () => {
             name: 'John Doe'
         });
     });
+  });
 
+  describe('doesPatientExists', () => {
+    it('should return false when no patient was registered', async () => {
+        const patientId=1;
+        const exists = await service.doesPatientExists(patientId);
+
+        expect(exists).toBe(false);
+    });
+    it('should return true when patient was registered', async () => {
+        const {id: patientId} = await service.register({name: 'John Doe'});
+        const exists = await service.doesPatientExists(patientId);
+
+        expect(exists).toBe(true);
+    });
   });
 });
