@@ -8,10 +8,11 @@ interface PatientInput {
 @Injectable()
 export class PatientService {
     private readonly patients: Patient[] = [];
+    private nextId = 1;
 
     async register(patientInput: PatientInput): Promise<Patient> {
         const newPatient = {
-            id: 1,
+            id: this.nextId++,
             name: patientInput.name
         };
         

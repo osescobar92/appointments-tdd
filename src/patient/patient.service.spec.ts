@@ -25,6 +25,13 @@ describe('PatientService', () => {
             name: 'John Doe'
         });
     });
+
+    it('should return different ids when called twice with the same name', async() => {
+        const firstPatient = await service.register({ name: 'John Doe' });
+        const secondPatient = await service.register({ name: 'John Doe' });
+
+        expect(firstPatient).not.toEqual(secondPatient);
+    });
   });
 
   describe('doesPatientExists', () => {
